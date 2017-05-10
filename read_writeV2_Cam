@@ -1,0 +1,58 @@
+from openpyxl import Workbook
+# from openpyxl import load_workbook
+
+
+class Locations:
+    def __init__(self, filename, column, row):
+        self._wb = Workbook()
+        self._ws = self._wb.active
+        self._col = column
+        self._row = row
+        self._filename = filename
+
+    def set_col(self, column):
+        self._col = column
+
+    def set_wb(self,workbook):
+        # self._ws = worksheet
+        self._wb = workbook
+        # self._ws = self._wb.active
+
+    def set_ws(self):
+        self._ws = self._wb.active
+
+    def set_row(self, row):
+        self._row = row
+
+    # get values for each variable
+
+    def get_wb(self):
+        return self._wb
+
+    def get_ws(self):
+        return self._ws
+
+    def get_col(self):
+        return self._col
+
+    def get_row(self):
+        return self._row
+
+
+class WriteBook(Locations):
+    def __init__(self, filename, column, row):
+        Locations.__init__(self, filename, column, row)
+
+    def write_cell(self):
+
+        cell = self._col + str(self._row)
+        self._ws[cell] = "Don't Panic"
+        # input('TEST INPUT PRESS ENTER TO CONTINUE')
+        self._wb.save(self._filename)
+
+def main():
+    test_obj = WriteBook("Sample2.xlsx", "A", 1)
+    test_obj.write_cell()
+
+main()
+
